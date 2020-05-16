@@ -1,3 +1,7 @@
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API
+ */
+
 const socket = new WebSocket('ws://localhost:9000');
 var SpeechRecognition = (SpeechRecognition || webkitSpeechRecognition);
 var SpeechGrammarList = (SpeechGrammarList || webkitSpeechGrammarList);
@@ -22,5 +26,10 @@ recognition.addEventListener('result', e => {
 
 socket.addEventListener('open', e => {
 	console.log(e);
-	socket.send('myTexter');
+	// TODO: remove this when done testing.
+	socket.send('for');
 });
+
+// setTimeout(() => {
+// 	location.reload();
+// }, 2000);
