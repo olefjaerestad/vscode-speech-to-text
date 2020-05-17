@@ -58,14 +58,13 @@ export function activate(context: vscode.ExtensionContext) {
 							},
 						]);
 					}
-				}, '.'); */ // TODO: trigger this programmatically. Update: don' think we need this at all since we can use the code below instead?
+				}, '.'); */ // todo: trigger this programmatically. Update: don' think we need this at all since we can use the code below instead?
 
 				/**
 				 * Add text to currently open document/file.
-				 * TODO: Trigger CompletionItem if applicable (maybe we need to trigger some 'keyup'-like Event?).
-				 * TODO: Add support for special characters (enter, space, tab, backspace, etc).
-				 * TODO: Add support for removing text.
-				 * TODO: Add support multiple selections?
+				 * todo: Add support for special characters (enter, space, tab, backspace, arrows, etc). Use vscode.commands.
+				 * todo: Add support for removing text. Use vscode.commands.
+				 * todo: Add support for multiple selections? Use vscode.commands.
 				 */
 				const path = vscode.window.activeTextEditor?.document.fileName;
 				const cursorPos = vscode.window.activeTextEditor?.selection.active;
@@ -74,7 +73,8 @@ export function activate(context: vscode.ExtensionContext) {
 					const uri = vscode.Uri.file(path);
 					const position = new vscode.Position(cursorPos?.line||0, cursorPos?.character||0);
 					edit.insert(uri, position, data);
-					vscode.workspace.applyEdit(edit);
+					vscode.workspace.applyEdit(edit).then(res => vscode.commands.executeCommand('editor.action.triggerSuggest'));
+					// vscode.commands.getCommands(false).then(commands => console.log(JSON.stringify(commands))); // Get all available commands.
 				}
 			});
 		});
