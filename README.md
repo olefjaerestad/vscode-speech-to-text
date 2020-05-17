@@ -50,6 +50,7 @@ Users appreciate release notes as you update your extension.
 - [https://code.visualstudio.com/api/references/vscode-api#WorkspaceEdit](https://code.visualstudio.com/api/references/vscode-api#WorkspaceEdit)
 - [https://stackoverflow.com/questions/39569993/vs-code-extension-get-full-path](https://stackoverflow.com/questions/39569993/vs-code-extension-get-full-path)
 - [https://github.com/microsoft/vscode/issues/111](https://github.com/microsoft/vscode/issues/111) (Extension API: cursor position (determining current location and moving it) #111)
+- [https://github.com/Microsoft/vscode/issues/35000](https://github.com/Microsoft/vscode/issues/35000) (Trigger a Completion Item from key binding in vscode extensions #35000)
 - [https://github.com/TalAter/annyang](https://github.com/TalAter/annyang) (Not currently using, but might be worth a look?)
 
 ### 1.0.0
