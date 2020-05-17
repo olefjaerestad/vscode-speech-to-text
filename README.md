@@ -14,8 +14,8 @@ For example if there is an image subfolder under your extension project workspac
 
 ## Usage
 1. `cmd/ctrl+shift+p` to open the command palette.
-2. Run the `Speech to Text: Dictate` command. This will start a WebSocket server at `localhost:9000`.
-3. Open `client/index.html` in Chrome or another browser that supports the [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API). This will connect to the WebSocket server and also ask for permission to use your device's microphone. You need to allow this to start using speech to text. Keep this page open and proceed to next step.
+2. Run the `Speech to Text: Dictate` command. This will start a web server at `localhost:9000` and a WebSocket server at `localhost:9001`.
+3. `localhost:9000` will automatically open in your default browser. If it doesn't, open it manually in Chrome or another browser that [supports the Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility). This will connect to the WebSocket server and also ask for permission to use your device's microphone. You need to allow this to start using speech to text. Keep this page open and proceed to the next step.
 4. (WIP) Speak into your microphone. Each phrase you speak will be compared against a predefined list of recognized phrases. If there are any matches, they will be listed inline in your editor.
 
 ## Requirements
@@ -44,6 +44,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 Users appreciate release notes as you update your extension.
 
 ## Resources
+- [https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API)
 - [https://code.visualstudio.com/api/get-started/your-first-extension](https://code.visualstudio.com/api/get-started/your-first-extension)
 - [https://code.visualstudio.com/api/references/vscode-api](https://code.visualstudio.com/api/references/vscode-api)
 - [https://code.visualstudio.com/api/references/vscode-api#WorkspaceEdit](https://code.visualstudio.com/api/references/vscode-api#WorkspaceEdit)

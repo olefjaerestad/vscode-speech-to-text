@@ -1,12 +1,23 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+const path = require('path');
 const WebSocket = require('ws');
+const express = require('express');
+const open = require('open');
+const app = express();
+const port = 9000;
+const socketPort = 9001;
+
+app.use('/', express.static(path.join(__dirname, '../client')));
+app.listen(port, () => {
+	vscode.window.showInformationMessage(`[Speech to Text] Server running at localhost:${port}`);
+	open(`http://localhost:${port}`);
+});
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('[Speech to Text] Congratulations, your extension "vscode-speech-to-text" is now active!');
@@ -16,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('stt.dictate', () => {
 		// The code you place here will be executed every time your command is executed
-		const wss = new WebSocket.Server({port: 9000});
+		const wss = new WebSocket.Server({port: socketPort});
 
 		wss.on('connection', (socket: any) => {
 			// Display a message box to the user

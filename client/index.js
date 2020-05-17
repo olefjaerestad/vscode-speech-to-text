@@ -1,33 +1,49 @@
-/**
- * https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API
- */
-
-const socket = new WebSocket('ws://localhost:9000');
+const socket = new WebSocket('ws://localhost:9001');
 var SpeechRecognition = (SpeechRecognition || webkitSpeechRecognition);
 var SpeechGrammarList = (SpeechGrammarList || webkitSpeechGrammarList);
 var SpeechRecognitionEvent = (SpeechRecognitionEvent || webkitSpeechRecognitionEvent);
 const recognition = new SpeechRecognition();
 const speechRecognitionList = new SpeechGrammarList();
-const colors = ['aqua' , 'azure' , 'beige', 'bisque', 'black', 'blue', 'brown', 'chocolate', 'coral'];
-const grammar = '#JSGF V1.0; grammar colors; public <color> = ' + colors.join(' | ') + ' ;';
+const css = [
+	'background-color',
+	'color',
+	'display',
+	'font-family',
+	'font-size',
+	'indent',
+	'list-style',
+	'opacity', 
+	'resize'
+];
+const grammar = '#JSGF V1.0; grammar colors; public <css> = ' + css.join(' | ') + ' ;';
+
 speechRecognitionList.addFromString(grammar, 1);
-recognition.grammars = speechRecognitionList;
-recognition.continuous = false;
-recognition.lang = 'en-US';
-recognition.interimResults = false;
+recognition.continuous = true; // Keep recording results.
+recognition.grammars = speechRecognitionList; // TODO: This doesn't seem to do anything?
+recognition.interimResults = false; // Return non-final results. Fast, but inaccurate.
+recognition.lang = 'en-US'; // 'nb-NO' for norwegian.
 recognition.maxAlternatives = 1;
-recognition.start();
 
 recognition.addEventListener('result', e => {
-	console.log(e);
+	console.log(e.results[e.resultIndex][0].transcript.trim());
 	// TODO:
-	// socket.send(e.results[0][0]);
+	socket.send(e.results[e.resultIndex][0].transcript.trim());
+});
+recognition.addEventListener('end', e => {
+	/**
+	 * Restart speech recognition when it stops, 
+	 * as it seems to stop after X time of no speech.
+	 * https://stackoverflow.com/questions/42895760/how-to-stop-and-restart-web-speech-api-correctly
+	 * https://stackoverflow.com/questions/34818154/webkitspeechrecognition-stops-recording-randomly
+	 * https://stackoverflow.com/questions/38702797/webkitspeechrecognition-stops-doesnt-fire-onend-at-random
+	 */
+	recognition.start();
 });
 
 socket.addEventListener('open', e => {
-	console.log(e);
+	recognition.start();
 	// TODO: remove this when done testing.
-	socket.send('for');
+	// socket.send('for');
 });
 
 // setTimeout(() => {
