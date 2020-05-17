@@ -22,7 +22,7 @@ For example if there is an image subfolder under your extension project workspac
 
 If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
-- Internet connection. The Web Speech API requires this. [See the note under Speech recognition](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API)
+- Internet connection. The Web Speech API requires this. [See the note under Speech recognition](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API). The speed of the extension depends on the speed of your connection.
 
 ## Extension Settings
 
