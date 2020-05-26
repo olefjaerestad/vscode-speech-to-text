@@ -47,9 +47,17 @@ recognition.addEventListener('end', e => {
 .forEach(name => recognition.addEventListener(name, e => console.log(e)));
 
 socket.addEventListener('open', e => {
-	recognition.start();
+	// Todo: comment in when done testing
+	// recognition.start();
+	
 	// todo: remove this when done testing:
 	// socket.send('for');
+	// todo: remove this when done testing:
+	document.getElementById('phraseForm').addEventListener('submit', e => {
+		e.preventDefault();
+		socket.send(document.getElementById('phrase').value);
+		document.getElementById('phrase').value = '';
+	});
 });
 
 // todo: remove this when done testing:

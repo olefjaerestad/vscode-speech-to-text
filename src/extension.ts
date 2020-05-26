@@ -1,13 +1,14 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { COMMAND_MAPPINGS } from './constant/command-mappings';
 const path = require('path');
 const WebSocket = require('ws');
 const express = require('express');
 const open = require('open');
 const app = express();
 const port = 9000;
-const socketPort = 9001;
+const websocketPort = 9001;
 
 app.use('/', express.static(path.join(__dirname, '../client')));
 app.listen(port, () => {
@@ -27,54 +28,51 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('stt.dictate', () => {
 		// The code you place here will be executed every time your command is executed
-		const wss = new WebSocket.Server({port: socketPort});
+		const wss = new WebSocket.Server({port: websocketPort});
 
 		wss.on('connection', (socket: any) => {
 			// Display a message box to the user
 			console.log('[Speech to Text] New WebSocket connection');
 			vscode.window.showInformationMessage('[Speech to Text] New WebSocket connection');
 
-			socket.on('message', (data: string) => {
-				console.log(`[Speech to Text] New WebSocket message: ${data as string}`);
-
-				/* vscode.languages.registerCompletionItemProvider('javascript', {
-					provideCompletionItems: (doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionList> => {
-						console.log('[Speech to Text] inside');
-						return new vscode.CompletionList([
-							{
-								label: 'I am a method',
-								kind: 1
-							},
-							{
-								label: 'I am a function',
-								kind: 2
-							},
-							{
-								label: 'I am a property',
-								kind: 9
-							},
-							{
-								label: 'I don\'t have a kind',
-							},
-						]);
-					}
-				}, '.'); */ // todo: trigger this programmatically. Update: don' think we need this at all since we can use the code below instead?
+			socket.on('message', (message: string) => {
+				console.log(`[Speech to Text] New WebSocket message: ${message}`);
 
 				/**
 				 * Add text to currently open document/file.
-				 * todo: Add support for special characters (enter, space, tab, backspace, arrows, etc). Use vscode.commands.
+				 * todo: Add support for special characters (enter, space, tab, backspace, etc). Use vscode.commands.
 				 * todo: Add support for removing text. Use vscode.commands.
 				 * todo: Add support for multiple selections? Use vscode.commands.
 				 */
 				const path = vscode.window.activeTextEditor?.document.fileName;
-				const cursorPos = vscode.window.activeTextEditor?.selection.active;
+				
 				if (path) {
-					const edit = new vscode.WorkspaceEdit();
-					const uri = vscode.Uri.file(path);
-					const position = new vscode.Position(cursorPos?.line||0, cursorPos?.character||0);
-					edit.insert(uri, position, data);
-					vscode.workspace.applyEdit(edit).then(res => vscode.commands.executeCommand('editor.action.triggerSuggest'));
-					// vscode.commands.getCommands(false).then(commands => console.log(JSON.stringify(commands))); // Get all available commands.
+					if (
+						Object.keys(COMMAND_MAPPINGS).includes(message) && 
+						(
+							(Object.keys(COMMAND_MAPPINGS[message]).includes('if') && COMMAND_MAPPINGS[message].if) || 
+							!Object.keys(COMMAND_MAPPINGS[message]).includes('if')
+						)
+					) {
+						// console.log('exec command for', message, ...(COMMAND_MAPPINGS[message].params || []));
+						vscode.commands.executeCommand(COMMAND_MAPPINGS[message].command, ...(COMMAND_MAPPINGS[message].params || []));
+					} else {
+						const edit = new vscode.WorkspaceEdit();
+						const uri = vscode.Uri.file(path);
+						const cursorPos = vscode.window.activeTextEditor?.selection.active;
+						const position = new vscode.Position(cursorPos?.line||0, cursorPos?.character||0);
+						edit.insert(uri, position, message);
+						vscode.workspace.applyEdit(edit).then(res => vscode.commands.executeCommand('editor.action.triggerSuggest'));
+					}
+
+					// Get all available commands.
+					// vscode.commands.getCommands(false).then(commands => {
+					// 	commands.forEach(command => {
+					// 		if (command.toLowerCase().includes('suggestion')) { // next, down, suggestion
+					// 			console.log(command);
+					// 		}
+					// 	});
+					// });
 				}
 			});
 		});
