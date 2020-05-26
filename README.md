@@ -37,15 +37,15 @@ Try speaking these commands and VS Code should perform according to the table:
 
 | Command | Description |
 | --- | --- |
-| down | `Move cursor down.` |
-| enter | `Accept current IntelliSense suggestion.` |
-| left | `Move cursor left.` |
-| next | `Select next IntelliSense suggestion.` |
-| previous | `Select previous IntelliSense suggestion.` |
-| right | `Move cursor right.` |
-| up | `Move cursor up.` |
+| down | Move cursor down. |
+| enter | Accept current IntelliSense suggestion. |
+| left | Move cursor left. |
+| next | Select next IntelliSense suggestion. |
+| previous | Select previous IntelliSense suggestion. |
+| right | Move cursor right. |
+| up | Move cursor up. |
 
-```Note: All other phrases will be output as text and trigger the IntelliSense suggestion dialog.```
+> Note: All other phrases will be output as text and trigger the IntelliSense suggestion dialog.
 
 ## Requirements
 
