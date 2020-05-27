@@ -11,7 +11,7 @@ const app = express();
 const port = 9000;
 const websocketPort = 9001;
 
-app.use('/', express.static(path.join(__dirname, '../client')));
+app.use('/', express.static(path.join(__dirname, 'client')));
 app.listen(port, () => {
 	vscode.window.showInformationMessage(`[Speech to Text] Server running at localhost:${port}`);
 	open(`http://localhost:${port}`);

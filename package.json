@@ -25,7 +25,9 @@
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"lint": "eslint src --ext ts",
-		"watch": "tsc -watch -p ./",
+		"watch": "npm run copyfiles && tsc -p ./tsconfig.client.json && tsc -watch -p ./",
+		"watchclient": "npm run copyfiles && tsc -watch -p ./tsconfig.client.json",
+		"copyfiles": "node copy-files.js",
 		"pretest": "npm run compile && npm run lint",
 		"test": "node ./out/test/runTest.js"
 	},

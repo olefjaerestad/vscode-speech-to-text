@@ -35,7 +35,10 @@ TODO:
 2. Open extension folder in VS Code.
 3. Open the `Run` tab in the sidebar (`shift+cmd+D` on OSX) and click `Run Extension`.
 4. A new VS Code `Extension Development Host` window will open. Open a file in this window and follow the Usage steps.
-5. When you make any changes to the extension code, you need to refresh the `Extension Development Host` (`cmd+r` on OSX) for the changes to take effect. The exception being the code in the `client` folder - for this you can simply refresh the `localhost:9000` browser tab.
+5. When you make any changes to the extension code, you need to refresh the `Extension Development Host` (`cmd+r` on OSX) for the changes to take effect. 
+
+> Note: For changes to the code in the `client` folder to compile automatically, `npm run watchclient` must be ran in a separate terminal window.
+> Note 2: If you have any compile errors in the `client` folder, step 4 won't work. In that case, run `tsc -p ./tsconfig.client.json` to see the errors you need to fix.
 
 ## <a name="commands">Commands</a>
 Try speaking these commands and VS Code should perform according to the table:
@@ -74,6 +77,7 @@ This extension contributes the following settings:
 ## Known Issues
 
 - The speed of the extension depends on the speed of your connection. This is a limitation of the [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API). Might be worth checking out other speech recognition alternatives.
+- Compiling the `client` folder separately is tedious. Should look into a fix.
 
 ## Resources
 - [https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API)
