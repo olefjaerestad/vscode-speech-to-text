@@ -23,7 +23,7 @@
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
+		"compile": "npm run copyfiles && tsc -p ./tsconfig.client.json && tsc -p ./",
 		"lint": "eslint src --ext ts",
 		"watch": "npm run copyfiles && tsc -p ./tsconfig.client.json && tsc -watch -p ./",
 		"watchclient": "npm run copyfiles && tsc -watch -p ./tsconfig.client.json",
