@@ -3,13 +3,47 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>VS Code Speech to Text</title>
+	<style>
+		:root {
+			--color-black-opaque: hsla(0, 0%, 20%, .1);
+			--color-gray: hsl(0, 0%, 93%);
+			--color-white: hsl(0, 0%, 100%);
+		}
+		html {
+			background-color: var(--color-gray);
+		}
+		body {
+			font-family: 'Helvetica Neue', sans-serif;
+			font-weight: 200;
+			background-color: var(--color-white);
+			max-width: 600px;
+			padding: 1rem;
+			box-shadow: 
+				1px 1px 1px var(--color-black-opaque),
+				2px 2px 5px var(--color-black-opaque),
+				0px 0px 10px var(--color-black-opaque);
+			margin: 1rem auto;
+		}
+		ul#output {
+			list-style-type: none;
+    	padding: 0;
+			display: flex;
+    	flex-direction: column-reverse;
+		}
+		ul#output li {
+			border-bottom: 1px solid var(--color-gray);
+			padding-top: .2rem;
+			padding-bottom: .2rem;
+		}
+	</style>
 </head>
 <body>
 	<form id="phraseForm">
 		<input type="text" autofocus id="phrase">
 	</form>
-	<ol id="output"></ol>
+	<h1>When you start speaking, your phrases will be listed below:</h1>
+	<ul id="output"></ul>
 </body>
-<script src="./index.js"></script>
+<script src="./index.js" type="module"></script>
 </html>

@@ -1,6 +1,6 @@
 {
 	"name": "vscode-speech-to-text",
-	"displayName": "VSCode Speech to Text",
+	"displayName": "VS Code Speech to Text",
 	"description": "Simple speech-to-text extension for Visual Studio Code.",
 	"version": "0.0.1",
 	"engines": {

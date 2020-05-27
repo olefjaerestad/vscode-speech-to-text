@@ -7,6 +7,7 @@ const WebSocket = require('ws');
 const express = require('express');
 const open = require('open');
 const app = express();
+// Todo: make ports part of the extension settings
 const port = 9000;
 const websocketPort = 9001;
 
@@ -35,8 +36,8 @@ export function activate(context: vscode.ExtensionContext) {
 			console.log('[Speech to Text] New WebSocket connection');
 			vscode.window.showInformationMessage('[Speech to Text] New WebSocket connection');
 
-			socket.on('message', (message: string) => {
-				console.log(`[Speech to Text] New WebSocket message: ${message}`);
+			socket.on('message', (phrase: string) => {
+				console.log(`[Speech to Text] New WebSocket message: ${phrase}`);
 
 				/**
 				 * Add text to currently open document/file.
@@ -48,20 +49,20 @@ export function activate(context: vscode.ExtensionContext) {
 				
 				if (path) {
 					if (
-						Object.keys(COMMAND_MAPPINGS).includes(message) && 
+						Object.keys(COMMAND_MAPPINGS).includes(phrase) && 
 						(
-							(Object.keys(COMMAND_MAPPINGS[message]).includes('if') && COMMAND_MAPPINGS[message].if) || 
-							!Object.keys(COMMAND_MAPPINGS[message]).includes('if')
+							(Object.keys(COMMAND_MAPPINGS[phrase]).includes('if') && COMMAND_MAPPINGS[phrase].if) || 
+							!Object.keys(COMMAND_MAPPINGS[phrase]).includes('if')
 						)
 					) {
-						// console.log('exec command for', message, ...(COMMAND_MAPPINGS[message].params || []));
-						vscode.commands.executeCommand(COMMAND_MAPPINGS[message].command, ...(COMMAND_MAPPINGS[message].params || []));
+						// console.log('[Speech to Text] exec command for', phrase, ...(COMMAND_MAPPINGS[phrase].params || []));
+						vscode.commands.executeCommand(COMMAND_MAPPINGS[phrase].command, ...(COMMAND_MAPPINGS[phrase].params || []));
 					} else {
 						const edit = new vscode.WorkspaceEdit();
 						const uri = vscode.Uri.file(path);
 						const cursorPos = vscode.window.activeTextEditor?.selection.active;
 						const position = new vscode.Position(cursorPos?.line||0, cursorPos?.character||0);
-						edit.insert(uri, position, message);
+						edit.insert(uri, position, phrase);
 						vscode.workspace.applyEdit(edit).then(res => vscode.commands.executeCommand('editor.action.triggerSuggest'));
 					}
 
