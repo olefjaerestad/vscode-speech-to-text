@@ -9,17 +9,17 @@ Write code using your voice. Handy if you're not big on keyboards.
 This is meant to be used in conjunction with [VS Code snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets). Speak a snippet, VS Code opens the IntelliSense suggestions dialog, then use your voice to select one of the suggestions. Certain VS Code [commands are also supported](#commands).
 
 <img src="images/command-palette.png" width="600" alt="The command palette.">
-<br><i>The command palette.</i><br><br>
+<i>The command palette.</i><br><br><br>
 <img src="images/microphone-prompt.png" width="600" alt="The extension will ask you for permission to use your microphone.">
-<br><i>The extension will ask you for permission to use your microphone.</i><br><br>
+<i>The extension will ask you for permission to use your microphone.</i><br><br><br>
 <img src="images/address-bar-allowed.png" width="600" alt="Address bar in Chrome when you've allowed access to your microphone.">
-<br><i>Address bar in Chrome when you've allowed access to your microphone.</i><br><br>
+<i>Address bar in Chrome when you've allowed access to your microphone.</i><br><br><br>
 <img src="images/address-bar-denied.png" width="600" alt="Address bar in Chrome when you've denied access to your microphone.">
-<br><i>Address bar in Chrome when you've denied access to your microphone.</i><br><br>
+<i>Address bar in Chrome when you've denied access to your microphone.</i><br><br><br>
 <img src="images/gui.png" width="600" alt="The GUI. It's not here you want to spend your time anyway.">
-<br><i>The GUI. It's not here you want to spend your time anyway.</i><br><br>
+<i>The GUI. It's not here you want to spend your time anyway.</i><br><br><br>
 <img src="images/intellisense.png" width="600" alt="The IntelliSense suggestions dialog.">
-<br><i>The IntelliSense suggestions dialog.</i><br><br>
+<i>The IntelliSense suggestions dialog.</i><br><br><br>
 
 ## Installation
 TODO:
@@ -29,6 +29,8 @@ TODO:
 2. Run the `Speech to Text: Dictate` command. This will start a web server at `localhost:9000` and a WebSocket server at `localhost:9001`.
 3. `localhost:9000` will automatically open in your default browser. If it doesn't, open it manually in Chrome or another browser that [supports the Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility). This will connect to the WebSocket server and also ask for permission to use your device's microphone. You need to allow this to start using speech to text. Keep this page open (Note: keeping several tabs with this page open simultaneously could cause some hickups and is discouraged) and proceed to the next step.
 4. Speak into your microphone. Each phrase you speak will be compared against a list of [predefined recognized phrases](#commands). If there's a match, it will trigger the corresponding command in VS Code. If not, it will simply output your phrase as text and trigger the IntelliSense suggestion dialog.
+
+> Note: The extension will only work on files already saved to disk.
 
 ## Dev
 1. `npm i`.
